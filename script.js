@@ -459,3 +459,25 @@ document.addEventListener('DOMContentLoaded', () => {
   // Simple CSS tooltips via data-tooltip attr — handled in CSS via ::after
 
 });
+emailjs.init("Jqs7gOTe27mlgBJWTT"); // Public Key
+
+const contactForm = document.getElementById("contact-form");
+
+contactForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    emailjs.send("abhi@04", "template_z73vtzk", {
+        name: document.getElementById("c-name").value,
+        email: document.getElementById("c-email").value,
+        subject: document.getElementById("c-subject").value,
+        message: document.getElementById("c-message").value
+    })
+    .then(function () {
+        alert("✅ Message Sent Successfully!");
+        contactForm.reset();
+    })
+    .catch(function (error) {
+        console.log(error);
+        alert("❌ Failed to send message.");
+    });
+});
