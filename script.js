@@ -386,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ─────────────────────────────────────────────
      14. CONTACT FORM
   ───────────────────────────────────────────── */
- emailjs.init("Jqs7gOTe27mlgBJWTT"); // Public Key
+ emailjs.init("Jqs7gOTe27mlgBWTT"); // Public Key
 
 const contactForm = document.getElementById("contact-form");
 
@@ -403,9 +403,9 @@ contactForm.addEventListener("submit", function (e) {
         alert("✅ Message Sent Successfully!");
         contactForm.reset();
     })
-    .catch(function (error) {
-        console.log(error);
-        alert("❌ Failed to send message.");
+   .catch(function(error) {
+    console.log(error);
+    alert(JSON.stringify(error));
     });
 });
   
