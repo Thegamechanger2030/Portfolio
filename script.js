@@ -386,29 +386,29 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ─────────────────────────────────────────────
      14. CONTACT FORM
   ───────────────────────────────────────────── */
-  const contactForm = document.getElementById('contact-form');
-  const formMsg     = document.getElementById('form-msg');
+ emailjs.init("Jqs7gOTe27mlgBJWTT"); // Public Key
 
-  if (contactForm) {
-    contactForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const name = document.getElementById('c-name').value.trim();
-      formMsg.className = '';
-      formMsg.textContent = '';
+const contactForm = document.getElementById("contact-form");
 
-      const submitBtn = contactForm.querySelector('button[type="submit"]');
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+contactForm.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-      setTimeout(() => {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
-        formMsg.textContent = `Thank you, ${name}! Your message has been received. I'll get back to you soon.`;
-        formMsg.className   = 'success';
+    emailjs.send("abhi@04", "template_z73vtzk", {
+        name: document.getElementById("c-name").value,
+        email: document.getElementById("c-email").value,
+        subject: document.getElementById("c-subject").value,
+        message: document.getElementById("c-message").value
+    })
+    .then(function () {
+        alert("✅ Message Sent Successfully!");
         contactForm.reset();
-      }, 1400);
+    })
+    .catch(function (error) {
+        console.log(error);
+        alert("❌ Failed to send message.");
     });
-  }
+});
+  
 
   /* ─────────────────────────────────────────────
      15. RESUME DOWNLOAD PLACEHOLDER
@@ -459,25 +459,4 @@ document.addEventListener('DOMContentLoaded', () => {
   // Simple CSS tooltips via data-tooltip attr — handled in CSS via ::after
 
 });
-emailjs.init("Jqs7gOTe27mlgBJWTT"); // Public Key
 
-const contactForm = document.getElementById("contact-form");
-
-contactForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    emailjs.send("abhi@04", "template_z73vtzk", {
-        name: document.getElementById("c-name").value,
-        email: document.getElementById("c-email").value,
-        subject: document.getElementById("c-subject").value,
-        message: document.getElementById("c-message").value
-    })
-    .then(function () {
-        alert("✅ Message Sent Successfully!");
-        contactForm.reset();
-    })
-    .catch(function (error) {
-        console.log(error);
-        alert("❌ Failed to send message.");
-    });
-});
